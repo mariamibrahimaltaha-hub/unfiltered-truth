@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Truth About Vaping</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --accent: #00e5ff;
+    --danger: #ff2d55;
+    --warn: #ff9f0a;
+    --green: #34c759;
+    --text: #f0f0f8;
+    --muted: #8888aa;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span { color: var(--danger); }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-back {
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.25);
+    color: var(--accent) !important;
+    padding: 0.35rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.82rem !important;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% -10%, rgba(0,229,255,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,45,85,0.10) 0%, transparent 70%),
+      var(--bg);
+    z-index: 0;
+  }
+
+  .smoke-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0,229,255,0.06);
+    animation: float-up linear infinite;
+    filter: blur(8px);
+  }
+
+  @keyframes float-up {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 0.3; }
+    100% { transform: translateY(-110vh) scale(2.5); opacity: 0; }
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,45,85,0.15);
+    border: 1px solid rgba(255,45,85,0.4);
+    color: var(--danger);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fade-in 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+    animation: fade-up 0.9s ease 0.2s both;
+  }
+
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), #0088ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero h1 .danger-text {
+    background: linear-gradient(135deg, var(--danger), #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    animation: fade-up 0.9s ease 0.4s both;
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fade-up 0.9s ease 0.6s both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--danger), #ff6b35);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(255,45,85,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(255,45,85,0.5);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid rgba(0,229,255,0.4);
+    padding: 0.9rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0,229,255,0.08);
+    border-color: var(--accent);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+    color: var(--muted);
+    font-size: 1.4rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 620px;
+    margin-bottom: 3rem;
+  }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .stat-card.red::before  { background: linear-gradient(90deg, var(--danger), #ff6b35); }
+  .stat-card.blue::before { background: linear-gradient(90deg, var(--accent), #0088ff); }
+  .stat-card.warn::before { background: linear-gradient(90deg, var(--warn), #ff6b35); }
+  .stat-card.grn::before  { background: linear-gradient(90deg, var(--green), #00c7be); }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+  }
+
+  .stat-card.red .stat-number  { color: var(--danger); }
+  .stat-card.blue .stat-number { color: var(--accent); }
+  .stat-card.warn .stat-number { color: var(--warn); }
+  .stat-card.grn .stat-number  { color: var(--green); }
+
+  .stat-label {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* MYTHS */
+  .myth-section { background: var(--surface); border-radius: 24px; padding: 3rem 2rem; }
+
+  .myth-grid { display: grid; gap: 1rem; }
+
+  .myth-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .myth-card:hover { transform: scale(1.01); }
+
+  .myth-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .myth-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(255,159,10,0.15);
+    color: var(--warn);
+  }
+
+  .myth-question { font-weight: 600; font-size: 0.98rem; flex: 1; }
+  .myth-toggle { color: var(--muted); font-size: 1.2rem; transition: transform 0.3s; }
+  .myth-card.open .myth-toggle { transform: rotate(45deg); }
+
+  .myth-answer {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .myth-card.open .myth-answer { display: block; }
+
+  .fact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255,45,85,0.12);
+    border: 1px solid rgba(255,45,85,0.3);
+    color: var(--danger);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 0.8rem;
+  }
+
+  .myth-answer p { color: var(--muted); line-height: 1.8; font-size: 0.92rem; }
+
+  /* CHEMICALS */
+  .chem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .chem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chem-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,45,85,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .chem-card:hover::after { opacity: 1; }
+  .chem-card:hover { border-color: rgba(255,45,85,0.4); transform: scale(1.04); }
+
+  .chem-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .chem-name { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.4rem; }
+  .chem-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+
+  /* BODY */
+  .body-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .body-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+  }
+
+  .body-card:hover {
+    border-color: rgba(255,45,85,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(255,45,85,0.12);
+  }
+
+  .body-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+  .body-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; color: var(--danger); }
+  .body-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+  /* QUIZ */
+  .quiz-section {
+    background: linear-gradient(135deg, rgba(255,45,85,0.05) 0%, rgba(0,229,255,0.05) 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+  }
+
+  .quiz-progress { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+
+  .quiz-dot {
+    flex: 1; height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    transition: background 0.3s;
+  }
+
+  .quiz-dot.done { background: var(--accent); }
+  .quiz-dot.active { background: var(--danger); }
+
+  .quiz-question {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.05rem, 3vw, 1.4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    min-height: 3rem;
+    letter-spacing: -0.5px;
+  }
+
+  .quiz-options { display: grid; gap: 0.8rem; }
+
+  .quiz-opt {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .quiz-opt:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.05);
+  }
+
+  .quiz-opt.correct { border-color: var(--green); background: rgba(52,199,89,0.1); color: var(--green); }
+  .quiz-opt.wrong   { border-color: var(--danger); background: rgba(255,45,85,0.1); color: var(--danger); }
+  .quiz-opt:disabled { cursor: default; }
+
+  .quiz-feedback {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 14px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: rgba(52,199,89,0.1); border: 1px solid rgba(52,199,89,0.3); color: #5aee7a; }
+  .quiz-feedback.wrong-fb   { background: rgba(255,45,85,0.1); border: 1px solid rgba(255,45,85,0.3); color: #ff6b7a; }
+
+  .quiz-next { margin-top: 1.5rem; display: none; }
+  .quiz-next.show { display: inline-flex; }
+
+  .quiz-result { text-align: center; display: none; padding: 2rem 0; }
+  .quiz-result.show { display: block; }
+
+  .result-score {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--danger));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+  }
+
+  .result-msg { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; }
+
+  /* CTA */
+  .cta-banner {
+    background: linear-gradient(135deg, #1a0a14, #0a0f1a);
+    border: 1px solid rgba(255,45,85,0.2);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,45,85,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    letter-spacing: -1px;
+  }
+
+  .cta-banner p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ANIMATIONS */
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.83rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .nav-links li:not(:last-child) { display: none; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">No <span>Vaping</span></div>
+  <ul class="nav-links">
+    <li><a href="#myths">Myths</a></li>
+    <li><a href="#facts">Facts</a></li>
+    <li><a href="#body">Your Body</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="index.html" class="nav-back">🌐 العربية</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="smoke-particles" id="particles"></div>
+  <div class="hero-content">
+    <span class="hero-tag">⚠️ Awareness Campaign — Anti-Tobacco</span>
+    <h1>
+      <span class="highlight">Vaping</span><br>
+      <span class="danger-text">Is Not Safe</span>
+    </h1>
+    <p class="hero-sub">
+      Many young people believe e-cigarettes are harmless or "lighter" than regular smoking.<br>
+      The reality is far more dangerous than you think.
+    </p>
+    <div class="hero-cta">
+      <a href="#myths" class="btn-primary">Bust the Myths</a>
+      <a href="#quiz" class="btn-secondary">Test Your Knowledge</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</div>
+
+<!-- STATS -->
+<section id="facts">
+  <span class="section-label">Shocking Numbers</span>
+  <h2 class="section-title reveal">The Numbers Don't Lie</h2>
+  <p class="section-desc reveal">Global statistics on the spread of vaping and its dangers to young people's health.</p>
+  <div class="stats-grid">
+    <div class="stat-card red reveal">
+      <div class="stat-number">2,500+</div>
+      <div class="stat-label">Chemical compounds found in a single e-cigarette</div>
+    </div>
+    <div class="stat-card warn reveal">
+      <div class="stat-number">3×</div>
+      <div class="stat-label">More addictive than regular cigarettes due to nicotine concentration</div>
+    </div>
+    <div class="stat-card blue reveal">
+      <div class="stat-number">72%</div>
+      <div class="stat-label">Of vape users started before the age of 18</div>
+    </div>
+    <div class="stat-card grn reveal">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Minutes for one vape session to affect your heart rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- MYTHS -->
+<section id="myths">
+  <span class="section-label">Myths vs Facts</span>
+  <h2 class="section-title reveal">What They Say… vs The Truth</h2>
+  <p class="section-desc reveal">Much of the information circulating about vaping is misleading. Discover the truth for yourself.</p>
+  <div class="myth-section reveal">
+    <div class="myth-grid">
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"It's just water vapor — it can't be harmful"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ Completely False</div>
+          <p>The vapor contains fine toxic particles that go directly to your lungs. These include nicotine, heavy metals like lead and nickel, and fatty particles that cause EVALI — a potentially fatal lung disease.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"Vaping helps you quit smoking"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ Not Scientifically Proven</div>
+          <p>There is insufficient scientific evidence that vaping is an effective quitting method. Most people who use it for that purpose end up dependent on both. The WHO does not recommend it as a treatment.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"No tar means no addiction"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ Common Misconception</div>
+          <p>Tar is not what causes addiction — nicotine is. Many vape devices contain up to 3× the nicotine concentration of regular cigarettes. Addiction happens faster and goes deeper.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"Nicotine-free vapes are completely safe"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ Not True</div>
+          <p>Even "nicotine-free" vape liquids contain harmful chemicals like acetaldehyde, formaldehyde, and glycols. These irritate the respiratory system and damage the lungs over time.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"The vapor doesn't harm people nearby"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ Secondhand Exposure Is Real</div>
+          <p>The aerosol from vaping contains nicotine and toxic particles that harm bystanders — especially children and pregnant women. The air doesn't clear immediately; particles remain suspended.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHEMICALS -->
+<section>
+  <span class="section-label">What's Inside</span>
+  <h2 class="section-title reveal">Chemicals Entering Your Body</h2>
+  <p class="section-desc reveal">Every puff delivers a cocktail of substances never meant to be inhaled.</p>
+  <div class="chem-grid">
+    <div class="chem-card reveal">
+      <div class="chem-icon">⚗️</div>
+      <div class="chem-name">Nicotine</div>
+      <div class="chem-desc">Highly addictive — affects the brain, heart, and blood pressure</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">☣️</div>
+      <div class="chem-name">Formaldehyde</div>
+      <div class="chem-desc">A known carcinogen used in embalming fluid — yes, found in vapes too</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🔋</div>
+      <div class="chem-name">Nickel & Lead</div>
+      <div class="chem-desc">Heavy metals that leach from heating coils and accumulate in your lungs</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🧪</div>
+      <div class="chem-name">Acetaldehyde</div>
+      <div class="chem-desc">Classified as carcinogenic — damages the liver and respiratory tract</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🌡️</div>
+      <div class="chem-name">Propylene Glycol</div>
+      <div class="chem-desc">Irritates airways when heated, causing chronic cough and inflammation</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">💀</div>
+      <div class="chem-name">Diacetyl</div>
+      <div class="chem-desc">Causes "popcorn lung" — permanent scarring with no known cure</div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY IMPACT -->
+<section id="body">
+  <span class="section-label">Impact On Your Body</span>
+  <h2 class="section-title reveal">How Vaping Damages You</h2>
+  <p class="section-desc reveal">The damage doesn't stop at the lungs — every organ feels the effects.</p>
+  <div class="body-grid">
+    <div class="body-card reveal">
+      <span class="body-icon">🫁</span>
+      <div class="body-title">Lungs</div>
+      <div class="body-desc">Acute inflammation and scarring, reduced oxygen capacity, and risk of EVALI — a deadly disease that has killed hundreds of young people.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🧠</span>
+      <div class="body-title">Brain</div>
+      <div class="body-desc">Nicotine rewires neural circuits, impairs focus and memory, and increases the risk of anxiety and depression in young users.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">❤️</span>
+      <div class="body-title">Heart</div>
+      <div class="body-desc">Raises heart rate and blood pressure, constricts blood vessels — increasing the risk of cardiac events even in young people.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🦷</span>
+      <div class="body-title">Mouth & Throat</div>
+      <div class="body-desc">Chronic dry mouth, gum inflammation, tooth discoloration, and throat sores — damaging your appearance before your health.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🧬</span>
+      <div class="body-title">DNA</div>
+      <div class="body-desc">Studies show vape compounds cause DNA mutations linked to cancer — damage that may not appear for years.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">😴</span>
+      <div class="body-title">Sleep & Energy</div>
+      <div class="body-desc">Nicotine disrupts sleep cycles, causes chronic fatigue, and lowers energy levels and academic concentration.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <span class="section-label">Test Yourself</span>
+  <h2 class="section-title reveal">How Much Do You Know?</h2>
+  <p class="section-desc reveal">5 questions to reveal how well you know the facts — be honest with yourself!</p>
+  <div class="quiz-section reveal">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div id="quizArea">
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="btn-primary quiz-next" id="quizNext">Next Question →</button>
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <button class="btn-primary" onclick="restartQuiz()">Retake Quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner reveal">
+    <h2>Your Choice Today Shapes Your Health Tomorrow</h2>
+    <p>
+      You're not alone — quitting is possible and help is available.<br>
+      Speak to a doctor or health professional if you're struggling with addiction.
+    </p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="https://www.who.int/news-room/fact-sheets/detail/tobacco" target="_blank" class="btn-primary">WHO Resources</a>
+      <a href="#myths" class="btn-secondary">Review the Myths Again</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Educational awareness content · Anti-Tobacco Campaign · <a href="index.html" style="color:var(--accent);text-decoration:none;">← Back to Language Selection</a></p>
+</footer>
+
+<script>
+// Particles
+const container = document.getElementById('particles');
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 80 + 20;
+  p.style.cssText = `
+    width:${size}px;height:${size}px;
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*20}%;
+    animation-duration:${8+Math.random()*12}s;
+    animation-delay:${Math.random()*10}s;
+  `;
+  container.appendChild(p);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Myth accordion
+document.querySelectorAll('.myth-card').forEach(card => {
+  card.querySelector('.myth-header').addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.myth-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  });
+});
+
+// QUIZ
+const quizData = [
+  {
+    q: "Approximately how many chemical compounds are found in one e-cigarette?",
+    opts: ["10–20 compounds", "100–200 compounds", "Over 2,000 compounds", "Only natural ingredients"],
+    correct: 2,
+    fb: "✅ Correct! E-cigarettes contain over 2,000 chemical compounds, many of which have never been studied for their long-term effects on humans.",
+    wfb: "❌ Actually, e-cigarettes contain over 2,000 different chemical compounds — far more than most people expect."
+  },
+  {
+    q: "Which part of the body is most immediately damaged by vaping?",
+    opts: ["The liver", "The lungs and respiratory system", "The skin", "The bones"],
+    correct: 1,
+    fb: "✅ Correct! The lungs are the first to suffer because the toxic aerosol reaches them directly with every puff.",
+    wfb: "❌ The lungs are vaping's first victims — the toxic aerosol reaches them directly with every single puff."
+  },
+  {
+    q: "Is a 'nicotine-free' vape completely safe?",
+    opts: ["Yes, totally safe", "Relatively safe", "No — it still contains harmful chemicals", "Depends on the brand"],
+    correct: 2,
+    fb: "✅ Right! Even without nicotine, the liquid contains harmful substances like formaldehyde and diacetyl.",
+    wfb: "❌ Even 'nicotine-free' vapes contain carcinogens and respiratory irritants that damage your health."
+  },
+  {
+    q: "At what age do most vape users typically start?",
+    opts: ["Over 25", "Between 18–25", "Before age 18", "Over 30"],
+    correct: 2,
+    fb: "✅ Sadly true! 72% of users started before the legal age of adulthood — this is the deliberate target market of tobacco companies.",
+    wfb: "❌ Statistics show 72% started before age 18 — tobacco companies systematically target young people."
+  },
+  {
+    q: "What is the primary addictive substance in vaping products?",
+    opts: ["Tar", "Nicotine", "Glycol", "Artificial flavoring"],
+    correct: 1,
+    fb: "✅ Excellent! Nicotine is the addictive agent, and it's present at extremely high concentrations in most vape devices.",
+    wfb: "❌ Nicotine is the true addictive — and it's present at much higher concentrations in vapes than in regular cigarettes."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQuiz() {
+  const d = quizData[current];
+  const prog = document.getElementById('quizProgress');
+  prog.innerHTML = quizData.map((_, i) =>
+    `<div class="quiz-dot ${i < current ? 'done' : i === current ? 'active' : ''}"></div>`
+  ).join('');
+  document.getElementById('quizQ').textContent = `${current + 1}. ${d.q}`;
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizNext').className = 'btn-primary quiz-next';
+
+  const opts = document.getElementById('quizOpts');
+  opts.innerHTML = d.opts.map((opt, i) =>
+    `<button class="quiz-opt" onclick="answer(${i})">${opt}</button>`
+  ).join('');
+  answered = false;
+}
+
+function answer(idx) {
+  if (answered) return;
+  answered = true;
+  const d = quizData[current];
+  const buttons = document.querySelectorAll('.quiz-opt');
+  buttons.forEach(b => b.disabled = true);
+  buttons[d.correct].classList.add('correct');
+  const fb = document.getElementById('quizFeedback');
+  if (idx === d.correct) {
+    score++;
+    buttons[idx].classList.add('correct');
+    fb.className = 'quiz-feedback correct-fb show';
+    fb.textContent = d.fb;
+  } else {
+    buttons[idx].classList.add('wrong');
+    fb.className = 'quiz-feedback wrong-fb show';
+    fb.textContent = d.wfb;
+  }
+  const next = document.getElementById('quizNext');
+  next.className = 'btn-primary quiz-next show';
+  next.textContent = current < quizData.length - 1 ? 'Next Question →' : 'See My Score 🎯';
+}
+
+document.getElementById('quizNext').addEventListener('click', () => {
+  current++;
+  if (current >= quizData.length) showResult();
+  else renderQuiz();
+});
+
+function showResult() {
+  document.getElementById('quizArea').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.className = 'quiz-result show';
+  document.getElementById('resultScore').textContent = `${score}/${quizData.length}`;
+  const msgs = [
+    "You need more knowledge — start by reading the page from the top! 📖",
+    "Basic knowledge — go back to the myths and read carefully 🧐",
+    "Not bad! But there's still more to learn 💡",
+    "Great! You're informed — share this with your friends 🌟",
+    "Perfect score! You're ready to raise awareness everywhere 🏆"
+  ];
+  document.getElementById('resultMsg').textContent = msgs[score] || msgs[4];
+}
+
+function restartQuiz() {
+  current = 0; score = 0;
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('quizResult').className = 'quiz-result';
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
