@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الحقيقة عن الفيب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --accent: #00e5ff;
+    --danger: #ff2d55;
+    --warn: #ff9f0a;
+    --green: #34c759;
+    --text: #f0f0f8;
+    --muted: #8888aa;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% -10%, rgba(0,229,255,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,45,85,0.10) 0%, transparent 70%),
+      var(--bg);
+    z-index: 0;
+  }
+
+  .smoke-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0,229,255,0.06);
+    animation: float-up linear infinite;
+    filter: blur(8px);
+  }
+
+  @keyframes float-up {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 0.3; }
+    100% { transform: translateY(-110vh) scale(2.5); opacity: 0; }
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,45,85,0.15);
+    border: 1px solid rgba(255,45,85,0.4);
+    color: var(--danger);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fade-in 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 1rem;
+    animation: fade-up 0.9s ease 0.2s both;
+  }
+
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), #0088ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero h1 .danger-text {
+    background: linear-gradient(135deg, var(--danger), #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--muted);
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    animation: fade-up 0.9s ease 0.4s both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fade-up 0.9s ease 0.6s both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--danger), #ff6b35);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(255,45,85,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(255,45,85,0.5);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid rgba(0,229,255,0.4);
+    padding: 0.9rem 2.2rem;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0,229,255,0.08);
+    border-color: var(--accent);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+    color: var(--muted);
+    font-size: 1.5rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ---- SECTIONS ---- */
+  section {
+    padding: 5rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 620px;
+    margin-bottom: 3rem;
+  }
+
+  /* ---- MYTH vs FACT ---- */
+  .myth-section { background: var(--surface); border-radius: 24px; padding: 3rem 2rem; }
+
+  .myth-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .myth-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .myth-card:hover { transform: scale(1.01); }
+
+  .myth-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .myth-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(255,159,10,0.15);
+    color: var(--warn);
+  }
+
+  .myth-question {
+    font-weight: 700;
+    font-size: 1rem;
+    flex: 1;
+  }
+
+  .myth-toggle {
+    color: var(--muted);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+
+  .myth-card.open .myth-toggle { transform: rotate(45deg); }
+
+  .myth-answer {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .myth-card.open .myth-answer { display: block; }
+
+  .fact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255,45,85,0.12);
+    border: 1px solid rgba(255,45,85,0.3);
+    color: var(--danger);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 0.8rem;
+  }
+
+  .myth-answer p {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 0.95rem;
+  }
+
+  /* ---- STATS ---- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .stat-card.red::before  { background: linear-gradient(90deg, var(--danger), #ff6b35); }
+  .stat-card.blue::before { background: linear-gradient(90deg, var(--accent), #0088ff); }
+  .stat-card.warn::before { background: linear-gradient(90deg, var(--warn), #ff6b35); }
+  .stat-card.grn::before  { background: linear-gradient(90deg, var(--green), #00c7be); }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .stat-number {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-card.red .stat-number  { color: var(--danger); }
+  .stat-card.blue .stat-number { color: var(--accent); }
+  .stat-card.warn .stat-number { color: var(--warn); }
+  .stat-card.grn .stat-number  { color: var(--green); }
+
+  .stat-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* ---- CHEMICALS ---- */
+  .chem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .chem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chem-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,45,85,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .chem-card:hover::after { opacity: 1; }
+  .chem-card:hover { border-color: rgba(255,45,85,0.4); transform: scale(1.04); }
+
+  .chem-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .chem-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .chem-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* ---- QUIZ ---- */
+  .quiz-section {
+    background: linear-gradient(135deg, rgba(255,45,85,0.05) 0%, rgba(0,229,255,0.05) 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+  }
+
+  .quiz-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .quiz-dot {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    transition: background 0.3s;
+  }
+
+  .quiz-dot.done { background: var(--accent); }
+  .quiz-dot.active { background: var(--danger); }
+
+  .quiz-question {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    min-height: 3rem;
+  }
+
+  .quiz-options {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .quiz-opt {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: right;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .quiz-opt:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.05);
+  }
+
+  .quiz-opt.correct { border-color: var(--green); background: rgba(52,199,89,0.1); color: var(--green); }
+  .quiz-opt.wrong   { border-color: var(--danger); background: rgba(255,45,85,0.1); color: var(--danger); }
+  .quiz-opt:disabled { cursor: default; }
+
+  .quiz-feedback {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: rgba(52,199,89,0.1); border: 1px solid rgba(52,199,89,0.3); color: #5aee7a; }
+  .quiz-feedback.wrong-fb   { background: rgba(255,45,85,0.1); border: 1px solid rgba(255,45,85,0.3); color: #ff6b7a; }
+
+  .quiz-next {
+    margin-top: 1.5rem;
+    display: none;
+  }
+
+  .quiz-next.show { display: inline-flex; }
+
+  .quiz-result {
+    text-align: center;
+    display: none;
+    padding: 2rem 0;
+  }
+
+  .quiz-result.show { display: block; }
+
+  .result-score {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--danger));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .result-msg {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  /* ---- BODY IMPACT ---- */
+  .body-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .body-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+  }
+
+  .body-card:hover {
+    border-color: rgba(255,45,85,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(255,45,85,0.12);
+  }
+
+  .body-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .body-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: var(--danger);
+  }
+
+  .body-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ---- CTA BANNER ---- */
+  .cta-banner {
+    background: linear-gradient(135deg, #1a0a14, #0a0f1a);
+    border: 1px solid rgba(255,45,85,0.2);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,45,85,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta-banner p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+
+  .nav-logo span { color: var(--danger); }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">لا <span>للفيب</span></div>
+  <ul class="nav-links">
+    <li><a href="#myths">الأساطير</a></li>
+    <li><a href="#facts">الحقائق</a></li>
+    <li><a href="#body">الجسم</a></li>
+    <li><a href="#quiz">اختبر نفسك</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="smoke-particles" id="particles"></div>
+  <div class="hero-content">
+    <span class="hero-tag">⚠️ نشاط توعوي — مكافحة التدخين</span>
+    <h1>
+      <span class="highlight">الفيب</span><br>
+      <span class="danger-text">ليس بريئاً</span>
+    </h1>
+    <p class="hero-sub">
+      يظن كثير من الشباب أن السيجارة الإلكترونية آمنة أو "أخف" من التدخين العادي.<br>
+      الحقيقة أكثر خطورة مما تتخيل.
+    </p>
+    <div class="hero-cta">
+      <a href="#myths" class="btn-primary">اكشف الأساطير</a>
+      <a href="#quiz" class="btn-secondary">اختبر معلوماتك</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</div>
+
+<!-- STATS -->
+<section id="facts">
+  <span class="section-label">أرقام صادمة</span>
+  <h2 class="section-title reveal">الأرقام لا تكذب</h2>
+  <p class="section-desc reveal">إحصاءات عالمية حول انتشار الفيب وخطورته على صحة الشباب.</p>
+  <div class="stats-grid">
+    <div class="stat-card red reveal">
+      <div class="stat-number">٢٥٠٠+</div>
+      <div class="stat-label">مادة كيميائية تحتوي عليها سيجارة إلكترونية واحدة</div>
+    </div>
+    <div class="stat-card warn reveal">
+      <div class="stat-number">٣×</div>
+      <div class="stat-label">أكثر إدماناً من السجائر العادية بسبب تركيز النيكوتين</div>
+    </div>
+    <div class="stat-card blue reveal">
+      <div class="stat-number">٧٢٪</div>
+      <div class="stat-label">من مستخدمي الفيب بدأوا قبل سن الـ 18</div>
+    </div>
+    <div class="stat-card grn reveal">
+      <div class="stat-number">١٢</div>
+      <div class="stat-label">دقيقة كافية لأول سيجارة إلكترونية لتؤثر على ضربات القلب</div>
+    </div>
+  </div>
+</section>
+
+<!-- MYTHS -->
+<section id="myths">
+  <span class="section-label">أساطير وحقائق</span>
+  <h2 class="section-title reveal">ماذا يقولون... والحقيقة</h2>
+  <p class="section-desc reveal">كثير من المعلومات المنتشرة عن الفيب مضللة. اكتشف الحقيقة بنفسك.</p>
+  <div class="myth-section reveal">
+    <div class="myth-grid">
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"الفيب مجرد بخار ماء، لا يضر"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ خطأ تماماً</div>
+          <p>البخار الناتج يحتوي على جزيئات دقيقة سامة تصل مباشرة للرئتين. تشمل النيكوتين، المعادن الثقيلة كالرصاص والنيكل، وجزيئات دهنية ضارة تسبب مرض "رئة المكنسة" EVALI.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"الفيب يساعد على الإقلاع عن التدخين"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ غير مثبت علمياً</div>
+          <p>لا يوجد دليل علمي كافٍ يثبت فعالية الفيب كوسيلة للإقلاع. بل إن معظم من يستخدمونه لهذا الهدف ينتهون بالاعتماد على النوعين معاً. منظمة الصحة العالمية لا توصي به كعلاج.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"الفيب لا يسبب الإدمان لأنه بدون قطران"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ مفهوم خاطئ</div>
+          <p>القطران ليس المادة المسببة للإدمان — النيكوتين هو. وكثير من أجهزة الفيب تحتوي على تركيز نيكوتين يفوق السيجارة العادية بثلاثة أضعاف. الإدمان يحدث بشكل أسرع وأعمق.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"الفيب بدون نيكوتين آمن تماماً"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ غير صحيح</div>
+          <p>حتى سوائل الفيب "بدون نيكوتين" تحتوي على مواد كيميائية ضارة مثل الأسيتالديهيد، الفورمالديهيد، والجليكول. هذه المواد تهيج الجهاز التنفسي وتلحق ضرراً بالرئتين على المدى البعيد.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-header">
+          <div class="myth-icon">🤔</div>
+          <div class="myth-question">"الدخان الصادر لا يؤذي المحيطين"</div>
+          <div class="myth-toggle">+</div>
+        </div>
+        <div class="myth-answer">
+          <div class="fact-badge">❌ التدخين السلبي حقيقي</div>
+          <p>البخار المنبعث من الفيب يحتوي على نيكوتين وجزيئات سامة تضر بالمجاورين، خاصة الأطفال والحوامل. الهواء لا يصفو بعد الاستنشاق مباشرة — الجزيئات تبقى عالقة.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHEMICALS -->
+<section>
+  <span class="section-label">ما بداخله</span>
+  <h2 class="section-title reveal">مواد كيميائية تدخل جسمك</h2>
+  <p class="section-desc reveal">كل نفسة تحمل خليطاً من المواد التي لم تُصنَّع لتُستنشق.</p>
+  <div class="chem-grid">
+    <div class="chem-card reveal">
+      <div class="chem-icon">⚗️</div>
+      <div class="chem-name">النيكوتين</div>
+      <div class="chem-desc">مادة مسببة للإدمان تؤثر على الدماغ والقلب وضغط الدم</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">☣️</div>
+      <div class="chem-name">الفورمالديهيد</div>
+      <div class="chem-desc">مادة مسرطنة تُستخدم في الحفاظ على الجثث — نعم، في الفيب أيضاً</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🔋</div>
+      <div class="chem-name">النيكل والرصاص</div>
+      <div class="chem-desc">معادن ثقيلة تتسرب من ملفات التسخين وتتراكم في الرئتين</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🧪</div>
+      <div class="chem-name">الأسيتالديهيد</div>
+      <div class="chem-desc">يُصنَّف مسرطناً ويؤذي الكبد والجهاز التنفسي</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">🌡️</div>
+      <div class="chem-name">البروبيلين غليكول</div>
+      <div class="chem-desc">يُهيج القصبات الهوائية ويسبب السعال المزمن عند تسخينه</div>
+    </div>
+    <div class="chem-card reveal">
+      <div class="chem-icon">💀</div>
+      <div class="chem-name">ثنائي الأسيتيل</div>
+      <div class="chem-desc">يسبب مرض "رئة الفشار" — تندب دائم لا يمكن علاجه</div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY IMPACT -->
+<section id="body">
+  <span class="section-label">تأثيره على الجسم</span>
+  <h2 class="section-title reveal">كيف يدمر الفيب جسمك</h2>
+  <p class="section-desc reveal">التأثير لا يقتصر على الرئتين — كل عضو يتأثر.</p>
+  <div class="body-grid">
+    <div class="body-card reveal">
+      <span class="body-icon">🫁</span>
+      <div class="body-title">الرئتان</div>
+      <div class="body-desc">التهاب حاد وتندب، ضعف في استيعاب الأكسجين، وخطر مرض EVALI المميت الذي أودى بحياة مئات الشباب.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🧠</span>
+      <div class="body-title">الدماغ</div>
+      <div class="body-desc">النيكوتين يعيد تشكيل الدوائر العصبية، يضعف التركيز والذاكرة، ويزيد خطر القلق والاكتئاب لدى الشباب.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">❤️</span>
+      <div class="body-title">القلب</div>
+      <div class="body-desc">يرفع معدل ضربات القلب وضغط الدم، ويضيّق الأوعية الدموية، مما يزيد خطر السكتة القلبية حتى في سن الشباب.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🦷</span>
+      <div class="body-title">الفم والحلق</div>
+      <div class="body-desc">جفاف مزمن في الفم، التهابات اللثة، تغير لون الأسنان، وقرح في الحلق — تضر بالمظهر قبل الصحة.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">🧬</span>
+      <div class="body-title">الحمض النووي</div>
+      <div class="body-desc">دراسات أثبتت أن مكونات الفيب تُحدث طفرات في الحمض النووي DNA مرتبطة بالسرطان.</div>
+    </div>
+    <div class="body-card reveal">
+      <span class="body-icon">😴</span>
+      <div class="body-title">النوم والطاقة</div>
+      <div class="body-desc">النيكوتين يُخل بدورة النوم، يسبب التعب المزمن، وانخفاض مستوى الطاقة والتركيز الدراسي.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <span class="section-label">اختبر نفسك</span>
+  <h2 class="section-title reveal">كم تعرف عن الفيب؟</h2>
+  <p class="section-desc reveal">٥ أسئلة تكشف مدى معرفتك بالحقائق — كن صريحاً مع نفسك!</p>
+  <div class="quiz-section reveal">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div id="quizArea">
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="btn-primary quiz-next" id="quizNext">السؤال التالي ←</button>
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <button class="btn-primary" onclick="restartQuiz()">أعد الاختبار</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner reveal">
+    <h2>قرارك اليوم يصنع صحتك غداً</h2>
+    <p>
+      لست وحدك — الإقلاع ممكن والمساعدة متاحة.<br>
+      تحدث مع طبيب أو مختص صحي إذا كنت تعاني من الإدمان.
+    </p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="https://www.who.int/ar/news-room/fact-sheets/detail/tobacco" target="_blank" class="btn-primary">منظمة الصحة العالمية</a>
+      <a href="#myths" class="btn-secondary">راجع الأساطير مجدداً</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>تم إعداد هذا المحتوى لأغراض توعوية تعليمية · نشاط مكافحة التدخين</p>
+</footer>
+
+<script>
+// --- Particles ---
+const container = document.getElementById('particles');
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 80 + 20;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*20}%;
+    animation-duration:${8+Math.random()*12}s;
+    animation-delay:${Math.random()*10}s;
+  `;
+  container.appendChild(p);
+}
+
+// --- Scroll reveal ---
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// --- Myth accordion ---
+document.querySelectorAll('.myth-card').forEach(card => {
+  card.querySelector('.myth-header').addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.myth-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  });
+});
+
+// --- QUIZ ---
+const quizData = [
+  {
+    q: "كم عدد المواد الكيميائية التقريبي في سيجارة إلكترونية واحدة؟",
+    opts: ["١٠-٢٠ مادة", "١٠٠-٢٠٠ مادة", "أكثر من ٢٠٠٠ مادة", "مواد طبيعية فقط"],
+    correct: 2,
+    fb: "✅ صحيح! تحتوي السيجارة الإلكترونية على أكثر من 2000 مادة كيميائية، كثير منها لم يُدرس تأثيره الكامل على الإنسان.",
+    wfb: "❌ في الواقع، تحتوي على أكثر من 2000 مادة كيميائية مختلفة — أكثر بكثير مما يتوقع معظم الناس."
+  },
+  {
+    q: "ما الجزء الأكثر تضرراً من الفيب على المدى القريب؟",
+    opts: ["الكبد", "الرئتان والجهاز التنفسي", "الجلد", "العظام"],
+    correct: 1,
+    fb: "✅ صحيح! الرئتان هما أول من يتأثر لأن البخار يصل إليهما مباشرة، مسبباً التهابات وتندباً.",
+    wfb: "❌ الرئتان هما أول ضحايا الفيب — البخار السام يصل إليهما مباشرة مع كل نفسة."
+  },
+  {
+    q: "هل الفيب 'بدون نيكوتين' آمن تماماً؟",
+    opts: ["نعم، آمن جداً", "آمن نسبياً", "لا، يحتوي مواد ضارة أخرى", "يعتمد على العلامة التجارية"],
+    correct: 2,
+    fb: "✅ إجابة صحيحة! حتى بدون نيكوتين، السائل يحتوي على مواد كيميائية ضارة كالفورمالديهيد وثنائي الأسيتيل.",
+    wfb: "❌ حتى 'بدون نيكوتين'، الفيب يحتوي على مواد مسرطنة ومهيجة للجهاز التنفسي."
+  },
+  {
+    q: "في أي فئة عمرية يبدأ معظم مستخدمي الفيب؟",
+    opts: ["فوق ٢٥ سنة", "بين ١٨-٢٥", "قبل سن ١٨", "فوق ٣٠ سنة"],
+    correct: 2,
+    fb: "✅ مؤسف لكنه صحيح! ٧٢٪ من المستخدمين بدأوا قبل سن البلوغ القانوني، وهذا هو الهدف الفعلي لشركات التبغ.",
+    wfb: "❌ الإحصاءات تقول أن ٧٢٪ بدأوا قبل سن ١٨ — شركات التبغ تستهدف الشباب بشكل ممنهج."
+  },
+  {
+    q: "ما المادة المسببة للإدمان في الفيب؟",
+    opts: ["القطران", "النيكوتين", "الجليكول", "النكهات الاصطناعية"],
+    correct: 1,
+    fb: "✅ ممتاز! النيكوتين هو المادة المسببة للإدمان وهو موجود بتركيز مرتفع جداً في معظم أجهزة الفيب.",
+    wfb: "❌ النيكوتين هو المدمن الحقيقي — وهو موجود بتركيز أعلى بكثير في الفيب مقارنة بالسيجارة العادية."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQuiz() {
+  const d = quizData[current];
+  // Progress
+  const prog = document.getElementById('quizProgress');
+  prog.innerHTML = quizData.map((_, i) => `<div class="quiz-dot ${i < current ? 'done' : i === current ? 'active' : ''}"></div>`).join('');
+  document.getElementById('quizQ').textContent = `${current+1}. ${d.q}`;
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizNext').className = 'btn-primary quiz-next';
+
+  const opts = document.getElementById('quizOpts');
+  opts.innerHTML = d.opts.map((opt, i) => `
+    <button class="quiz-opt" onclick="answer(${i})">${opt}</button>
+  `).join('');
+  answered = false;
+}
+
+function answer(idx) {
+  if (answered) return;
+  answered = true;
+  const d = quizData[current];
+  const buttons = document.querySelectorAll('.quiz-opt');
+  buttons.forEach(b => b.disabled = true);
+  buttons[d.correct].classList.add('correct');
+  const fb = document.getElementById('quizFeedback');
+  if (idx === d.correct) {
+    score++;
+    buttons[idx].classList.add('correct');
+    fb.className = 'quiz-feedback correct-fb show';
+    fb.textContent = d.fb;
+  } else {
+    buttons[idx].classList.add('wrong');
+    fb.className = 'quiz-feedback wrong-fb show';
+    fb.textContent = d.wfb;
+  }
+  const next = document.getElementById('quizNext');
+  next.className = 'btn-primary quiz-next show';
+  next.textContent = current < quizData.length - 1 ? 'السؤال التالي ←' : 'اعرض نتيجتي 🎯';
+}
+
+document.getElementById('quizNext').addEventListener('click', () => {
+  current++;
+  if (current >= quizData.length) showResult();
+  else renderQuiz();
+});
+
+function showResult() {
+  document.getElementById('quizArea').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.className = 'quiz-result show';
+  document.getElementById('resultScore').textContent = `${score}/${quizData.length}`;
+  const msgs = [
+    "تحتاج مزيداً من المعرفة — ابدأ بقراءة الصفحة من أول! 📖",
+    "معرفة بسيطة — ارجع للأساطير واقرأها بتمعن 🧐",
+    "جيد! لكن لا يزال هناك ما تتعلمه 💡",
+    "ممتاز! أنت واعٍ — شارك هذه المعلومات مع أصدقائك 🌟",
+    "مثالي! أنت مستعد لتوعية الجميع حولك 🏆"
+  ];
+  document.getElementById('resultMsg').textContent = msgs[score] || msgs[4];
+}
+
+function restartQuiz() {
+  current = 0; score = 0;
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('quizResult').className = 'quiz-result';
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
